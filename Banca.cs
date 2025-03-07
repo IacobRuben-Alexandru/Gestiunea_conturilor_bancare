@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 
 public class Banca
 {
-    private List<ContBancar> conturi = new List<ContBancar>(); 
+    private List<ContBancar> conturi = new List<ContBancar>();
 
     public void AdaugaCont(ContBancar account)
     {
@@ -12,13 +12,21 @@ public class Banca
 
     public ContBancar GasireCont(string numarCont)
     {
-        foreach (ContBancar cont in conturi)
+        return conturi.Find(cont => cont.NumarCont == numarCont);
+    }
+
+    public void AfisareConturi()
+    {
+        foreach (var cont in conturi)
         {
-            if (cont.NumarCont == numarCont)
+            if (cont is ContFirma cf)
             {
-                return cont;
+                Console.WriteLine($"{cont.Banca} - {cont.NumarCont} - {cf.DenumireFirma} (Firma) - {cont.Sold} RON");
+            }
+            else
+            {
+                Console.WriteLine($"{cont.Banca} - {cont.NumarCont} - {cont.Proprietar} - {cont.Sold} RON");
             }
         }
-        return null; 
     }
 }

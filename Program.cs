@@ -4,26 +4,68 @@ class Program
 {
     static void Main()
     {
-
         Banca BancaMea = new Banca();
-        ContBancar ContulMeu = new ContBancar("123456", "Iacob Ruben", 1000,"BT");
-        ContulMeu.Cont();
-        BancaMea.AdaugaCont(ContulMeu);
-        ContulMeu.Depune(500);
-        Console.WriteLine($"Sold actualizat: {ContulMeu.Sold} RON");
-        bool success = ContulMeu.Extrage(1200);
-        if (success)
+
+        // Citire date de la tastatură
+        Console.Write("Introduceti numarul contului: ");
+        string numarCont = Console.ReadLine();
+        Console.Write("Introduceti numele proprietarului: ");
+        string proprietar = Console.ReadLine();
+        Console.Write("Introduceti soldul initial: ");
+        double sold = double.Parse(Console.ReadLine());
+        Console.Write("Introduceti banca: ");
+        string banca = Console.ReadLine();
+        Console.Write("Este cont de firmă? (da/nu): ");
+        bool esteFirma = Console.ReadLine().ToLower() == "da";
+
+        ContBancar contNou;
+        if (esteFirma)
         {
-            Console.WriteLine($"Retragere reusită. Sold nou: {ContulMeu.Sold} RON");
+            Console.Write("Introduceti denumirea firmei: ");
+            string denumireFirma = Console.ReadLine();
+            contNou = new ContFirma(numarCont, proprietar, sold, banca, denumireFirma);
         }
         else
         {
-            Console.WriteLine("Fonduri insuficiente!");
+            contNou = new ContBancar(numarCont, proprietar, sold, banca);
         }
-        ContBancar foundAccount = BancaMea.GasireCont("123456");
+
+        BancaMea.AdaugaCont(contNou);
+
+        // Afisare conturi
+        Console.WriteLine("Lista conturilor:");
+        BancaMea.AfisareConturi();
+
+        // Căutare cont
+        Console.Write("Introduceti numarul contului de cautat: ");
+        string contCautat = Console.ReadLine();
+        ContBancar foundAccount = BancaMea.GasireCont(contCautat);
         if (foundAccount != null)
         {
-            Console.WriteLine($"Cont gasit: {foundAccount.Proprietar} - Sold: {foundAccount.Sold} RON");
+            Console.WriteLine($"Cont găsit: {foundAccount.Proprietar} - Sold: {foundAccount.Sold} RON");
+
+            // Optiuni de depunere sau retragere
+            Console.Write("Doriti sa depuneti (D) sau sa retrageti (R) bani? (D/R): ");
+            string optiune = Console.ReadLine().ToUpper();
+            Console.Write("Introduceti suma: ");
+            double suma = double.Parse(Console.ReadLine());
+
+            if (optiune == "D")
+            {
+                foundAccount.Depune(suma);
+                Console.WriteLine($"Sold actualizat: {foundAccount.Sold} RON");
+            }
+            else if (optiune == "R")
+            {
+                if (foundAccount.Extrage(suma))
+                {
+                    Console.WriteLine($"Retragere reusita. Sold nou: {foundAccount.Sold} RON");
+                }
+                else
+                {
+                    Console.WriteLine("Fonduri insuficiente!");
+                }
+            }
         }
         else
         {

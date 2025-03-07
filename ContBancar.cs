@@ -2,10 +2,15 @@
 
 public class ContBancar
 {
-    public string NumarCont; 
-    public string Proprietar;         
-    public double Sold;
-    public string Banca;
+    //public string NumarCont; 
+    //public string Proprietar;         
+   // public double Sold;
+    //public string Banca;
+
+    public string NumarCont { get; set; }
+    public string Proprietar { get; set; }
+    public double Sold { get; private set; }
+    public string Banca { get; set; }
 
     public ContBancar(string numarCont, string proprietar, double sold, string banca)
     {
@@ -14,10 +19,7 @@ public class ContBancar
         Sold = sold;
         Banca = banca;
     }
-    public void Cont()
-    {
-        Console.WriteLine($"Cont la banca: {Banca}, NumarCont: {NumarCont}, Proprietar: {Proprietar}, Sold: {Sold}");
-    }
+
     public void Depune(double suma)
     {
         Sold += suma;
