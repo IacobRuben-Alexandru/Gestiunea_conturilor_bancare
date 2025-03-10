@@ -6,7 +6,6 @@ class Program
     {
         Banca BancaMea = new Banca();
 
-        // Citire date de la tastatură
         Console.Write("Introduceti numarul contului: ");
         string numarCont = Console.ReadLine();
         Console.Write("Introduceti numele proprietarului: ");
@@ -32,11 +31,9 @@ class Program
 
         BancaMea.AdaugaCont(contNou);
 
-        // Afisare conturi
         Console.WriteLine("Lista conturilor:");
         BancaMea.AfisareConturi();
 
-        // Căutare cont
         Console.Write("Introduceti numarul contului de cautat: ");
         string contCautat = Console.ReadLine();
         ContBancar foundAccount = BancaMea.GasireCont(contCautat);
@@ -44,7 +41,6 @@ class Program
         {
             Console.WriteLine($"Cont găsit: {foundAccount.Proprietar} - Sold: {foundAccount.Sold} RON");
 
-            // Optiuni de depunere sau retragere
             Console.Write("Doriti sa depuneti (D) sau sa retrageti (R) bani? (D/R): ");
             string optiune = Console.ReadLine().ToUpper();
             Console.Write("Introduceti suma: ");
