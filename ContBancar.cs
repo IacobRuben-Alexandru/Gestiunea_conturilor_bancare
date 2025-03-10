@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 
 public class ContBancar
 {
@@ -11,15 +12,19 @@ public class ContBancar
     public string Proprietar { get; set; }
     public double Sold { get; private set; }
     public string Banca { get; set; }
-
-    public ContBancar(string numarCont, string proprietar, double sold, string banca)
+    private string Pin { get; set; }
+    public ContBancar(string numarCont, string proprietar, double sold, string banca, string pin)
     {
         NumarCont = numarCont;
         Proprietar = proprietar;
         Sold = sold;
         Banca = banca;
+        Pin = pin;
     }
-
+    public bool VerificaPin(string pin)
+    {
+        return Pin == pin;
+    }
     public void Depune(double suma)
     {
         Sold += suma;

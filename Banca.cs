@@ -10,9 +10,9 @@ public class Banca
         conturi.Add(account);
     }
 
-    public ContBancar GasireCont(string numarCont)
+    public ContBancar GasireCont(string numarCont, string proprietar)
     {
-        return conturi.Find(cont => cont.NumarCont == numarCont);
+        return conturi.Find(cont => cont.NumarCont == numarCont && cont.Proprietar == proprietar);
     }
 
     public void AfisareConturi()
