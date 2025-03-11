@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Banca.cs" />
+    <Compile Include="CardBancar.cs" />
     <Compile Include="ContBancar.cs" />
     <Compile Include="ContFirma.cs" />
     <Compile Include="Program.cs" />

@@ -12,7 +12,10 @@ class Program
             Console.WriteLine("1. Creare cont");
             Console.WriteLine("2. Accesare cont");
             Console.WriteLine("3. Afisare conturi");
-            Console.WriteLine("4. Iesire");
+            Console.WriteLine("4. Adaugare card bancar");
+            Console.WriteLine("5. Afisare carduri");
+            Console.WriteLine("6. Cautare card");
+            Console.WriteLine("7. Iesire");
             Console.Write("Alegeti o optiune: ");
             int optiune = int.Parse(Console.ReadLine());
 
@@ -28,21 +31,8 @@ class Program
                 string banca = Console.ReadLine();
                 Console.Write("Setati un PIN: ");
                 string pin = Console.ReadLine();
-                Console.Write("Este cont de firmă? (da/nu): ");
-                bool esteFirma = Console.ReadLine().ToLower() == "da";
 
-                ContBancar contNou;
-                if (esteFirma)
-                {
-                    Console.Write("Introduceti denumirea firmei: ");
-                    string denumireFirma = Console.ReadLine();
-                    contNou = new ContFirma(numarCont, proprietar, sold, banca, denumireFirma, pin);
-                }
-                else
-                {
-                    contNou = new ContBancar(numarCont, proprietar, sold, banca, pin);
-                }
-
+                ContBancar contNou = new ContBancar(numarCont, proprietar, sold, banca, pin);
                 BancaMea.AdaugaCont(contNou);
                 Console.WriteLine("Cont creat cu succes!");
             }
@@ -99,6 +89,40 @@ class Program
                 BancaMea.AfisareConturi();
             }
             else if (optiune == 4)
+            {
+                Console.Write("Introduceti numarul cardului: ");
+                string numarCard = Console.ReadLine();
+                Console.Write("Introduceti numele titularului: ");
+                string titular = Console.ReadLine();
+                Console.Write("Introduceti data expirarii (MM/YY): ");
+                string dataExpirare = Console.ReadLine();
+                Console.Write("Introduceti CVV: ");
+                string cvv = Console.ReadLine();
+
+                CardBancar cardNou = new CardBancar(numarCard, titular, dataExpirare, cvv);
+                BancaMea.AdaugaCard(cardNou);
+                Console.WriteLine("Card adaugat cu succes!");
+            }
+            else if (optiune == 5)
+            {
+                BancaMea.AfisareCarduri();
+            }
+            else if (optiune == 6)
+            {
+                Console.Write("Introduceti numarul cardului de cautat: ");
+                string numarCard = Console.ReadLine();
+                CardBancar foundCard = BancaMea.GasireCard(numarCard);
+
+                if (foundCard != null)
+                {
+                    Console.WriteLine($"Card găsit: {foundCard.Titular} - Expira: {foundCard.DataExpirare}");
+                }
+                else
+                {
+                    Console.WriteLine("Cardul nu a fost găsit.");
+                }
+            }
+            else if (optiune == 7)
             {
                 break;
             }
